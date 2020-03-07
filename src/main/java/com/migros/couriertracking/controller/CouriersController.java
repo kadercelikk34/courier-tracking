@@ -46,20 +46,13 @@ public class CouriersController {
     @GetMapping(value = "/{id}")
     public @ResponseBody
     Double getTotalTravelDistance(@PathVariable("id") Long id) {
-        Double totalTravelDistance = courierService.getTotalTravelDistance(id);
-        return totalTravelDistance;
+        return courierService.getTotalTravelDistance(id);
     }
 
     //Lokasyonu verilen kuryenin 100 metre yakınındaki magazaların listesini(Magaza ismi  ve mesafesi)
     @GetMapping(value = "/courierDistanceStores")
-    public ResponseEntity<List<CourierDistance>> courierDistanceStores(@RequestBody LocationDto locationDto) {
-        try {
-            List<CourierDistance> list = courierService.courierDistanceStore(locationDto);
-            return ResponseEntity.ok(list);
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage(), ex);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto) {
+        return courierService.courierDistanceStore(locationDto);
     }
 
 }
