@@ -15,10 +15,14 @@ import java.net.URI;
 @RestController
 @RequestMapping("/locations")
 public class LocationController {
-    private static final Logger logger = LoggerFactory.getLogger(StoresController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationController.class);
+
+    private CourierService courierService;
 
     @Autowired
-    private CourierService courierService;
+    public LocationController(CourierService courierService) {
+        this.courierService = courierService;
+    }
 
     //Kurye ve Magaza lokasyonları kaydedilir.
     @PostMapping
@@ -29,7 +33,7 @@ public class LocationController {
             URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
             return ResponseEntity.created(url).build();
         } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

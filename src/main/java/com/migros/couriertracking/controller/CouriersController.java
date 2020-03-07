@@ -6,7 +6,7 @@ import com.migros.couriertracking.dto.LocationDto;
 import com.migros.couriertracking.service.CourierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
-
-
 @RestController
 @RequestMapping("/couriers")
+@ComponentScan
 public class CouriersController {
-    private static final Logger logger = LoggerFactory.getLogger(CouriersController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CouriersController.class);
 
-
-    @Autowired
     private CourierService courierService;
+
+    public CouriersController(CourierService courierService) {
+        this.courierService = courierService;
+    }
 
     //Yeni Kurye oluşturulur.
     @PostMapping
@@ -34,7 +34,7 @@ public class CouriersController {
             courierService.saveCourier(courierDto);
             Long id = courierDto.getId();
             URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
-            logger.info("this is a info message");
+            LOGGER.info("this is a info message");
             return ResponseEntity.created(url).build();
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);

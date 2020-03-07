@@ -25,15 +25,18 @@ public class CourierServiceImpl implements CourierService {
 
     private static final int STORE_RADIUS = 100;
 
-    @Autowired
     private CourierRepository courierRepository;
 
-    @Autowired
     private LocationRepository locationRepository;
 
+    private ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public CourierServiceImpl(CourierRepository courierRepository, LocationRepository locationRepository, ModelMapper modelMapper) {
+        this.courierRepository = courierRepository;
+        this.locationRepository = locationRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public void saveCourier(CourierDto courierDto) {
@@ -52,9 +55,9 @@ public class CourierServiceImpl implements CourierService {
     public Double getTotalTravelDistance(Long courierId) {
         double total = 0.0;
         try {
-            List<Location> courierLocationsList = locationRepository.findByCourierId(courierId);
-            for (int i = 0; i < courierLocationsList.size() - 1; i++) {
-                total += DistanceCalculator.distanceAsMetric(courierLocationsList.get(i).getLatitude(), courierLocationsList.get(i).getLongitude(), courierLocationsList.get(i + 1).getLatitude(), courierLocationsList.get(i + 1).getLongitude());
+            List<Location> list = locationRepository.findByCourierId(courierId);
+            for (int i = 0; i < list.size() - 1; i++) {
+                total += DistanceCalculator.distanceAsMetric(list.get(i).getLatitude(), list.get(i).getLongitude(), list.get(i + 1).getLatitude(), list.get(i + 1).getLongitude());
             }
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
@@ -72,7 +75,7 @@ public class CourierServiceImpl implements CourierService {
         try {
             List<Location> storeLocationsList = locationRepository.findAllByStoreIsNotNull();
 
-            storeLocationsList.stream().forEach(store -> {
+            storeLocationsList.forEach(store -> {
                 CourierDistance courierDistance = new CourierDistance();
                 double total = DistanceCalculator.distanceAsMetric(locationDto.getLatitude(), locationDto.getLongitude(), store.getLatitude(), store.getLongitude());
                 if (total < STORE_RADIUS) {

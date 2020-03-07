@@ -12,11 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StoreServiceImpl implements StoreService {
-    @Autowired
     private StoreRepository storeRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public StoreServiceImpl(StoreRepository storeRepository,ModelMapper modelMapper ) {
+        this.storeRepository = storeRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public void saveStore(StoreDto storeDto) {

@@ -17,9 +17,12 @@ import java.net.URI;
 @RequestMapping("/stores")
 public class StoresController {
     private static final Logger logger = LoggerFactory.getLogger(StoresController.class);
+    private StoreService storeService;
 
     @Autowired
-    private StoreService storeService;
+    public StoresController(StoreService storeService) {
+        this.storeService = storeService;
+    }
 
     //Yenibir magaza oluşturur.
     @PostMapping
