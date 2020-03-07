@@ -4,11 +4,15 @@ import com.migros.couriertracking.dto.CourierDistance;
 import com.migros.couriertracking.dto.CourierDto;
 import com.migros.couriertracking.dto.LocationDto;
 import com.migros.couriertracking.service.CourierService;
+import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -17,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/couriers")
-@ComponentScan
+@Component
 public class CouriersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CouriersController.class);
 
@@ -27,6 +31,11 @@ public class CouriersController {
         this.courierService = courierService;
     }
 
+    @Autowired
+    private Scheduler scheduler;
+
+    @Autowired
+    private ApplicationContext context;
     //Yeni Kurye oluşturulur.
     @PostMapping
     public ResponseEntity<URI> saveCourier(@RequestBody CourierDto courierDto) {
@@ -51,7 +60,9 @@ public class CouriersController {
 
     //Lokasyonu verilen kuryenin 100 metre yakınındaki magazaların listesini(Magaza ismi  ve mesafesi)
     @GetMapping(value = "/courierDistanceStores")
+    @Scheduled(fixedRate = 1000)
     public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto) {
+      System.out.println("test");
         return courierService.courierDistanceStore(locationDto);
     }
 
