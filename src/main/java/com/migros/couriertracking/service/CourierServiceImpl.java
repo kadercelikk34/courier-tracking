@@ -24,6 +24,8 @@ public class CourierServiceImpl implements CourierService {
     private static final Logger logger = LoggerFactory.getLogger(CourierServiceImpl.class);
 
     private static final int STORE_RADIUS = 100;
+    private static final int DISTANCE_MINUTE = 1;
+
 
     private CourierRepository courierRepository;
 
@@ -67,22 +69,19 @@ public class CourierServiceImpl implements CourierService {
         return total;
     }
 
-    //Lokasyonu verlen kuryeye en fazla 100 metre uzak olan magazalrın listesini verir.
+    //Lokasyonu verilen kuryeye en fazla 100 metre uzak olan magazaları listesini verir.1 dk mesafedeki magazalar giriş yapılmaz.
     @Override
-    public List<CourierDistance> courierDistanceStore(LocationDto locationDto , Double speed) {
+    public List<CourierDistance> courierDistanceStore(LocationDto locationDto, Double speed) {
         List<CourierDistance> courierDistanceList = new ArrayList<>();
-
         try {
             List<Location> storeLocationsList = locationRepository.findAllByStoreIsNotNull();
-
+            CourierDistance courierDistance = new CourierDistance();
             storeLocationsList.forEach(store -> {
-                CourierDistance courierDistance = new CourierDistance();
-                double total = DistanceCalculator.distanceAsMetric(locationDto.getLatitude(), locationDto.getLongitude(), store.getLatitude(), store.getLongitude());
-                // time kuryenin magazaya olan uzaklığını dk olarak verir
-                double time = DistanceCalculator.distanceAsTime(total, speed);
-                System.out.println(time);
-                if (total < STORE_RADIUS && time > 1) {
-                    courierDistance.setDistance(DistanceCalculator.distanceFormat(total));
+                double distanceTotal = DistanceCalculator.distanceAsMetric(locationDto.getLatitude(), locationDto.getLongitude(), store.getLatitude(), store.getLongitude());
+                double distanceTime = DistanceCalculator.distanceAsTime(distanceTotal, speed);
+                if (distanceTotal < STORE_RADIUS && distanceTime > DISTANCE_MINUTE) {
+                    courierDistance.setCourierDistance(DistanceCalculator.distanceFormat(distanceTotal));
+                    courierDistance.setDistanceMinute(distanceTime);
                     courierDistance.setStoreName(store.getStore().getStoreName());
                     courierDistanceList.add(courierDistance);
                 }

@@ -21,10 +21,13 @@ public class CouriersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CouriersController.class);
 
     private CourierService courierService;
+
     @Autowired
     public CouriersController(CourierService courierService) {
         this.courierService = courierService;
     }
+
+    //Yeni bir kurye oluşturur.
     @PostMapping
     public ResponseEntity<URI> saveCourier(@RequestBody CourierDto courierDto) {
         try {
@@ -46,9 +49,10 @@ public class CouriersController {
         return courierService.getTotalTravelDistance(id);
     }
 
-    //Lokasyonu verilen kuryenin 100 metre yakınındaki magazaların listesini(Magaza ismi  ve mesafesi)
+    /* Lokasyonu verilen kuryenin 100 metre ve daha yakınındaki magazaların listesini(Magaza ismi  ve mesafesi)
+     Mağazaya 1 dk  mesafedeki uzaklıklar göz ardı edilir. LocationDto kuryenin lokasyonu ve speed kuryenin hızıdır*/
     @GetMapping(value = "/courierDistanceStores")
-    public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto ,@RequestParam Double speed ) {
+    public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto,@RequestParam(value="speed") Double speed) {
         return courierService.courierDistanceStore(locationDto, speed);
     }
 

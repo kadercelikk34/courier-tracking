@@ -2,11 +2,21 @@ package com.migros.couriertracking.dto;
 
 import java.io.Serializable;
 
-//Kuryeye yakın magazaların isim ve mesafe için oluşturuldu
+//Kuryeye yakın magazaların isim ve kuryenin magazaya  uzaklığı ve mesafenin kac dk bilgileri için oluşturuldu
 public class CourierDistance implements Serializable {
 
     private String storeName;
-    private String distance;
+    private String courierDistance;
+    private Double distanceMinute;
+
+    public CourierDistance(String storeName, String courierDistance, Double distanceMinute) {
+        this.storeName = storeName;
+        this.courierDistance = courierDistance;
+        this.distanceMinute = distanceMinute;
+    }
+
+    public CourierDistance() {
+    }
 
     public String getStoreName() {
         return storeName;
@@ -16,19 +26,19 @@ public class CourierDistance implements Serializable {
         this.storeName = storeName;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getCourierDistance() {
+        return courierDistance;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setCourierDistance(String courierDistance) {
+        this.courierDistance = courierDistance;
     }
 
-    public CourierDistance(String storeName, String distance) {
-        this.storeName = storeName;
-        this.distance = distance;
+    public Double getDistanceMinute() {
+        return distanceMinute;
     }
 
-    public CourierDistance() {
+    public void setDistanceMinute(Double distanceMinute) {
+        this.distanceMinute = distanceMinute;
     }
 }

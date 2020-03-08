@@ -30,7 +30,7 @@ public class CourierServiceImplIntegrationTest {
         locationDto.setLatitude(40.9915988);
         locationDto.setLongitude(29.1238999);
         List<CourierDistance> list = new ArrayList<>();
-        list.add(new CourierDistance("Ataşehir MMM Migros", "92.5 m"));
+        list.add(new CourierDistance("Ataşehir MMM Migros", "92.5 m",5.0));
         when(courierService.courierDistanceStore(locationDto, 40.0)).thenReturn(list);
 
     }
