@@ -23,4 +23,12 @@ public class CourierDistance implements Serializable {
     public void setDistance(String distance) {
         this.distance = distance;
     }
+
+    public CourierDistance(String storeName, String distance) {
+        this.storeName = storeName;
+        this.distance = distance;
+    }
+
+    public CourierDistance() {
+    }
 }

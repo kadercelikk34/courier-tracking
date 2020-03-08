@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.migros.couriertracking.dto.CourierDto;
 import com.migros.couriertracking.dto.LocationDto;
 import com.migros.couriertracking.service.CourierService;
-import com.migros.couriertracking.service.StoreService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

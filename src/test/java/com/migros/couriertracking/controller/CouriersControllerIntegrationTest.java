@@ -18,8 +18,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = CouriersController.class)
+
 public class CouriersControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
@@ -29,7 +31,6 @@ public class CouriersControllerIntegrationTest {
 
     @MockBean
     private CourierService courierService;
-
 
     @Test
     public void testSaveCourier() throws Exception {
@@ -41,7 +42,6 @@ public class CouriersControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(courierDto)))
                 .andExpect(status().isCreated());
-
     }
 
     @Test

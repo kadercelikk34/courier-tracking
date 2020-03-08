@@ -8,10 +8,6 @@ import java.text.DecimalFormat;
  * DistanceCalculator formulüne göre iki nokta arasındaki mesafeyi metre olarak hesaplar
  */
 public class DistanceCalculator {
-    private DistanceCalculator() {
-        throw new IllegalStateException("DistanceCalculator class");
-    }
-
     private static final DecimalFormat df = new DecimalFormat("#.#");
 
     public static double distanceAsMetric(double lat1, double lon1, double lat2, double lon2) {

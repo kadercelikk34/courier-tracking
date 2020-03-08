@@ -25,7 +25,6 @@ public class CouriersController {
     public CouriersController(CourierService courierService) {
         this.courierService = courierService;
     }
-
     @PostMapping
     public ResponseEntity<URI> saveCourier(@RequestBody CourierDto courierDto) {
         try {

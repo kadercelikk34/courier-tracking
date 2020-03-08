@@ -1,4 +1,5 @@
 package com.migros.couriertracking.controller;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.migros.couriertracking.dto.StoreDto;
 import com.migros.couriertracking.service.StoreService;
@@ -26,13 +27,12 @@ public class StoresControllerIntegrationTest {
     @MockBean
     private StoreService storeService;
 
-
     @Test
     public void testSaveStore() throws Exception {
         StoreDto storeDto = new StoreDto();
         storeDto.setStoreName("Test MMM Migros");
         storeDto.setStoreAddress("Migros Test Adres");
-       //given(storeService.saveStore(storeDto)).willReturn(void);
+        //given(storeService.saveStore(storeDto)).willReturn(void);
 
         mvc.perform(post("/stores")
                 .contentType(MediaType.APPLICATION_JSON)
