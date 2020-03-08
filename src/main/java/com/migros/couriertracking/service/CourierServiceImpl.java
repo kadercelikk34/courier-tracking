@@ -69,7 +69,7 @@ public class CourierServiceImpl implements CourierService {
 
     //Lokasyonu verlen kuryeye en fazla 100 metre uzak olan magazalrın listesini verir.
     @Override
-    public List<CourierDistance> courierDistanceStore(LocationDto locationDto) {
+    public List<CourierDistance> courierDistanceStore(LocationDto locationDto , Double speed) {
         List<CourierDistance> courierDistanceList = new ArrayList<>();
 
         try {
@@ -78,7 +78,10 @@ public class CourierServiceImpl implements CourierService {
             storeLocationsList.forEach(store -> {
                 CourierDistance courierDistance = new CourierDistance();
                 double total = DistanceCalculator.distanceAsMetric(locationDto.getLatitude(), locationDto.getLongitude(), store.getLatitude(), store.getLongitude());
-                if (total < STORE_RADIUS) {
+                // time kuryenin magazaya olan uzaklığını dk olarak verir
+                double time = DistanceCalculator.distanceAsTime(total, speed);
+                System.out.println(time);
+                if (total < STORE_RADIUS && time > 1) {
                     courierDistance.setDistance(DistanceCalculator.distanceFormat(total));
                     courierDistance.setStoreName(store.getStore().getStoreName());
                     courierDistanceList.add(courierDistance);

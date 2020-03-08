@@ -48,8 +48,8 @@ public class CouriersController {
 
     //Lokasyonu verilen kuryenin 100 metre yakınındaki magazaların listesini(Magaza ismi  ve mesafesi)
     @GetMapping(value = "/courierDistanceStores")
-    public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto) {
-        return courierService.courierDistanceStore(locationDto);
+    public List<CourierDistance> courierDistanceStores(@RequestBody LocationDto locationDto ,@RequestParam Double speed ) {
+        return courierService.courierDistanceStore(locationDto, speed);
     }
 
 }

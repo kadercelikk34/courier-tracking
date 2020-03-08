@@ -28,6 +28,12 @@ public class DistanceCalculator {
         return df.format(distance) + " m";
 
     }
+    public static double distanceAsTime(double distance , double speed) {
+        double speedMeters = ( speed * 1000) / 60; // mpm
+        double time = distance / speedMeters ;
+        return  time;
+
+    }
 
 
 }

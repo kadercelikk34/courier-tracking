@@ -14,6 +14,6 @@ public interface CourierService {
 
     Double getTotalTravelDistance(Long courierId);
 
-    List<CourierDistance> courierDistanceStore(LocationDto locationDto);
+    List<CourierDistance> courierDistanceStore(LocationDto locationDto, Double speed);
 
 }
