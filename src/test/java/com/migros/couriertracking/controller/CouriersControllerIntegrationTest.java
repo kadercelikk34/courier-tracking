@@ -53,7 +53,7 @@ public class CouriersControllerIntegrationTest {
         courier.setId(1L);
         location.setCourier(courier);
         mvc.perform(get("/couriers/courierDistanceStores")
-                .param("speed","5")
+                .param("speed","2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(location)))
                 .andExpect(status().isOk());

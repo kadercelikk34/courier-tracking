@@ -39,7 +39,7 @@ public class DistanceCalculator {
     // verilen mesafe ve hıza göre dakikayı hesaplar (time = distance / speed)
     public static double distanceAsTime(double distance, double speed) {
         double speedMeters = (speed * THOUSAND_VALUE) / SIXTY_VALUE;
-        return distance / speedMeters;
+        return  Math.round(distance / speedMeters);
 
     }
 
