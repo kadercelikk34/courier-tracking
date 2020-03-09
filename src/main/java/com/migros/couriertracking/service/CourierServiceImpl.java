@@ -51,6 +51,9 @@ public class CourierServiceImpl implements CourierService {
         Location location = modelMapper.map(locationDto, Location.class);
         locationRepository.save(location);
     }
+/*    No, this is not possible using streams, at least not easily. The stream API abstracts away from the order in which
+    the elements are processed: the stream might be processed in parallel, or in reverse order.
+    So "the next element" and "previous element" do not exist in the stream abstraction.*/
 
     //id si verilen kuryenin ziyaret ettiği  mesafe toplamını  verir.
     @Override

@@ -35,7 +35,7 @@ Kullandığım teknolojiler ve yapılan işler
 
 Projenin Çalıştırılması
 ------------- 
-Projeyi gitden cekip CourierTrackingApplication dosyasını çalıştırınız.
+Projeyi gitden cekip CourierTrackingApplication classını çalıştırınız.
 resources> postMan.json --> postman de kullanılacak itemler 
 PostMan uygulamasından import > Import File  postMan.json dosyanını import ediniz.
 Daha sonra postmanden servislere istek gönderiniz.
@@ -77,3 +77,4 @@ Ekstradan Yapılacak İşler
 ------------- 
 1.Backend projeleri docker ile containerized yapılabilirdi. 
 2.Daha fazla junit test ve integration test yazılabilirdi.
+3.İki lokasyon arasındaki mesafeyi hesaplarken en az hata ve sapmanın olduğu formulü kullanmak için araştırma yapılabilir.
